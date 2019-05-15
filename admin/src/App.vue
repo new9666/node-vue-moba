@@ -7,14 +7,17 @@
 <style>
 html,
 body,
-ul,
-li,
+h1,
+h2,
+table,
+td,
+th,
+tr,
 div,
 span,
-p,
-input,
-font {
-  padding: 0;
+ul,
+li {
   margin: 0;
+  padding: 0;
 }
 </style>

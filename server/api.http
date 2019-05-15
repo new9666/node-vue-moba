@@ -1,0 +1,13 @@
+
+
+
+###
+POST http://localhost:3000/admin/api/categories
+content-type: application/json
+
+{
+  "name": "news"
+}
+
+
+
