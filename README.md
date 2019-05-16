@@ -1,3 +1,8 @@
 # node-vue-moba
 ## test
-`function`
+
+```js
+function test(str){
+  console.log( str );
+}
+```

@@ -1,9 +1,13 @@
 let express = require('express');
 
 let app = express();
-let router = express.Router();
+let router = express.Router({
+  mergeParams: true
+});
 
 
+
+app.use('/uploads', express.static(__dirname + '/uploads'));
 
 app.use(require('cors')());
 app.use(express.json());

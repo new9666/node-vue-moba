@@ -1,45 +1,70 @@
 module.exports = (app, router) => {
 
 
-  let Category = require('../../models/Category');
-
 
 
   // 创建一个新的分类
-  router.post('/categories', async (req, res) => {
-    let model = await Category.create(req.body);
-
-    console.log(req.body);
+  router.post('/', async (req, res) => {
+    let model = await req.Model.create(req.body);
+    // console.log("+++++++++++++", req.body);
     res.send(model);
   })
 
 
   // 获取分类列表
-  router.get('/categories', async (req, res) => {
-    let items = await Category.find();
+  router.get('/', async (req, res) => {
+
+    let queryOptions = {};
+
+    if (req.Model.modelName === 'Category') {
+      queryOptions.populate = 'parent'
+    }
+    let items = await req.Model.find().setOptions(queryOptions);
+    // populate('parent')
+
     res.send(items);
   })
 
   // 通过 ID 获取分类详情
-  router.get('/categories/:id', async (req, res) => {
-    let model = await Category.findById(req.params.id);
+  router.get('/:id', async (req, res) => {
+    let model = await req.Model.findById(req.params.id);
     res.send(model);
   })
 
   // 修改已有的分类
-  router.put('/categories/:id', async (req, res) => {
-    let model = await Category.findByIdAndUpdate(req.params.id, req.body);
+  router.put('/:id', async (req, res) => {
+    let model = await req.Model.findByIdAndUpdate(req.params.id, req.body);
     res.send(model);
   })
 
 
   // 删除分类
-  router.delete('/categories/:id', async (req, res) => {
-    let model = await Category.findByIdAndRemove(req.params.id);
-    res.send({ errno: 0, msg: '删除分类成功！' });
+  router.delete('/:id', async (req, res) => {
+    let model = await req.Model.findByIdAndRemove(req.params.id);
+    res.send({ errno: 0, msg: 'Success' });
   })
 
-  app.use('/admin/api', router);
+  app.use('/admin/api/rest/:resource', async (req, res, next) => {
+
+    let modelName = require('inflection').classify(req.params.resource);
+    req.Model = require('../../models/' + modelName);
+    // console.log("++++++++ ModelName", modelName);
+
+    next();
+  }, router);
+
+
+
+  let multer = require('multer');
+  let upload = multer({
+    dest: __dirname + '/../../uploads'
+  })
+
+  app.post('/admin/api/upload', upload.single('file'), async (req, res) => {
+    let file = req.file;
+    file.url = 'http://localhost:3000/uploads/' + file.filename;
+    res.send(file);
+  })
 
 
 }
