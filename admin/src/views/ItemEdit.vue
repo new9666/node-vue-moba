@@ -58,10 +58,10 @@ export default {
     async fetch() {
       let res = await this.$http.get("/rest/items/" + this.id);
       this.model = res.data;
-      console.log(res);
+      // console.log(res);
     },
     afterUpload(res) {
-      console.log(res);
+      // console.log(res);
       this.$set(this.model, "icon", res.url);
     }
   },
