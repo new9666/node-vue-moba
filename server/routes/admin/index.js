@@ -18,6 +18,8 @@ module.exports = (app, router) => {
 
     if (req.Model.modelName === 'Category') {
       queryOptions.populate = 'parent'
+    } else if (req.Model.modelName === 'Article') {
+      queryOptions.populate = '';// 'categories'
     }
     let items = await req.Model.find().setOptions(queryOptions);
     // populate('parent')
