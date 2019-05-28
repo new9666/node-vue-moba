@@ -6,6 +6,9 @@ let router = express.Router({
 });
 
 
+// 设置一个全局的 Secret，让 jwt 用来生成签名
+app.set('secret', "asdfghjkl");
+
 
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
