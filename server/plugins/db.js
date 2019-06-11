@@ -4,4 +4,7 @@ module.exports = (app) => {
     useCreateIndex: true,
     useNewUrlParser: true
   })
+
+
+  require('require-all')(__dirname + "/../models/");
 }

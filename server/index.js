@@ -17,7 +17,7 @@ app.use(express.json());
 
 require('./plugins/db.js')(app);
 require('./routes/admin')(app, router);
-
+require('./routes/web')(app, router);
 app.listen(3000, () => {
   console.log('Serve listening port 3000 !');
 })
