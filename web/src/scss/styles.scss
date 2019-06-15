@@ -1,7 +1,6 @@
-@import './variables.scss';
+@import "./variables.scss";
 
-@each $colorKey,
-$color in $colors {
+@each $colorKey, $color in $colors {
   .text-#{$colorKey} {
     color: $color;
   }
@@ -43,14 +42,21 @@ a {
   color: #999;
 }
 
-@each $sizeKey,
-$size in $font-sizes {
+@each $sizeKey, $size in $font-sizes {
   .fs-#{$sizeKey} {
     font-size: $size * $base-font-size;
   }
 }
 
+.text-ellipsis {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 // flex
+
 .d-flex {
   display: flex;
 }
@@ -72,34 +78,26 @@ $size in $font-sizes {
   flex-grow: 1;
 }
 
-@each $key,
-$value in $flex-jc {
+@each $key, $value in $flex-jc {
   .jc-#{$key} {
     justify-content: $value;
   }
 }
 
-@each $key,
-$value in $flex-ai {
+@each $key, $value in $flex-ai {
   .ai-#{$key} {
     align-items: $value;
   }
 }
 
-
-@each $mopKey,
-$mopVal in $mop {
-
-  @each $sizeKey,
-  $sizeVal in $mopSize {
+@each $mopKey, $mopVal in $mop {
+  @each $sizeKey, $sizeVal in $mopSize {
     .#{$mopKey}-#{$sizeKey} {
       // .m-0{margin:0}
       #{$mopVal}: $sizeVal * $base_mop_size;
     }
 
-    @each $fxKey,
-    $fxVal in $fangxiang {
-
+    @each $fxKey, $fxVal in $fangxiang {
       // .mt-1: {margin-top: 1rem;}
       .#{$mopKey}#{$fxKey}-#{$sizeKey} {
         #{$mopVal}-#{$fxVal}: $sizeVal * $base_mop_size;
@@ -124,11 +122,11 @@ $mopVal in $mop {
 .btn {
   border: none;
   border-radius: 0.1538rem;
-  font-size: map-get($font-sizes, 'sm') * $base-font-size;
+  font-size: map-get($font-sizes, "sm") * $base-font-size;
   padding: 0.2rem 0.6rem;
 }
 
-// nav 
+// nav
 .nav {
   display: flex;
 
@@ -144,10 +142,10 @@ $mopVal in $mop {
 
   &.nav-inverse {
     .nav-item {
-      color: map-get($colors, 'white');
+      color: map-get($colors, "white");
 
       &.active {
-        border-bottom: 3px solid map-get($colors, 'white');
+        border-bottom: 3px solid map-get($colors, "white");
       }
     }
   }
@@ -162,11 +160,10 @@ $mopVal in $mop {
   width: 100%;
 }
 
-
 // sprite
 
 .sprite {
-  background: url('../assets/images/index.png') no-repeat 0 0;
+  background: url("../assets/images/index.png") no-repeat 0 0;
   background-size: 28.8462rem;
   display: inline-block;
 

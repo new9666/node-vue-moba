@@ -7,11 +7,11 @@
         v-for="(category, i) in categories"
         :key="i"
       >
-        <div class="nav-link" @click="active = i">{{category.name}}</div>
+        <div class="nav-link" @click="$refs.list.swiper.slideTo(i)">{{category.name}}</div>
       </div>
     </div>
     <div class="pt3">
-      <swiper>
+      <swiper ref="list" @slide-change="()=> active = $refs.list.swiper.realIndex">
         <swiper-slide v-for="(category, n) in categories" :key="n">
           <slot name="items" :category="category"></slot>
         </swiper-slide>

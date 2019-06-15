@@ -1,6 +1,12 @@
 import Vue from 'vue'
 import App from './App.vue'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
+import axios from 'axios'
+
+Vue.prototype.$http = axios.create({
+  baseURL: "http://localhost:3000/web/api/"
+})
+
 
 import Card from './components/Card'
 Vue.component('m-card', Card);

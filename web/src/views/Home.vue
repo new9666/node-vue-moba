@@ -30,10 +30,10 @@
 
     <m-list-card title="新闻中心" icon="menu" :categories="newsCats">
       <template #items="{category}">
-        <div class="py-2" v-for="(news, i) in category.newsList" :key="i">
-          <span>[{{news.categoryName }}]</span>
-          <span>{{news.title}}</span>
-          <span>{{news.date}}</span>
+        <div class="py-2 fs-lg d-flex" v-for="(news, i) in category.newsList" :key="i">
+          <span class="px-2 text-info">[{{news.CategoryName }}]</span>
+          <span class="flex-1 text-ellipsis pr-2">{{news.title}}</span>
+          <span class="text-grey-1">{{news.createdAt | formatDate}}</span>
         </div>
       </template>
     </m-list-card>
@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import dayjs from "dayjs";
 export default {
   data() {
     return {
@@ -55,49 +56,22 @@ export default {
         }
       },
       swiperSlides: [1, 2, 3, 4, 5],
-      newsCats: [
-        {
-          name: "热门",
-          newsList: new Array(5).fill({}).map(v => ({
-            categoryName: "公告",
-            title: "王者大陆的端午宝藏活动公告",
-            date: "06/01"
-          }))
-        },
-        {
-          name: "新闻",
-          newsList: new Array(5).fill({}).map(v => ({
-            categoryName: "新闻",
-            title: "王者大陆的端午宝藏活动公告",
-            date: "06/01"
-          }))
-        },
-        {
-          name: "公告",
-          newsList: new Array(5).fill({}).map(v => ({
-            categoryName: "公告",
-            title: "王者大陆的端午宝藏活动公告",
-            date: "06/01"
-          }))
-        },
-        {
-          name: "活动",
-          newsList: new Array(5).fill({}).map(v => ({
-            categoryName: "活动",
-            title: "王者大陆的端午宝藏活动公告",
-            date: "06/01"
-          }))
-        },
-        {
-          name: "赛事",
-          newsList: new Array(5).fill({}).map(v => ({
-            categoryName: "赛事",
-            title: "王者大陆的端午宝藏活动公告",
-            date: "06/01"
-          }))
-        }
-      ]
+      newsCats: []
     };
+  },
+  methods: {
+    async fetchNewsList() {
+      let newsList = await this.$http.get("news/list");
+      this.newsCats = newsList.data;
+    }
+  },
+  created() {
+    this.fetchNewsList();
+  },
+  filters: {
+    formatDate(date) {
+      return dayjs(date).format("MM/DD");
+    }
   }
 };
 </script>
